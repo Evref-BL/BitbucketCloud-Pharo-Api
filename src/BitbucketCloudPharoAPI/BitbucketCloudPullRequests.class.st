@@ -14,3 +14,13 @@ BitbucketCloudPullRequests >> get: pullRequestId inRepository: repoSlug ofWorksp
 	
 	^self get: endpoint withParams: Dictionary new 
 ]
+
+{ #category : 'as yet unclassified' }
+BitbucketCloudPullRequests >> postComment: bitbucketCloudPullRequestComment inPullRequest: pullRequestId inRepository: repoSlug ofWorkspace: workspace [
+	"https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-comments-post"
+	
+	| endpoint |
+	endpoint := '/repositories/', workspace, '/', repoSlug, '/pullrequests/', pullRequestId asString , '/comments'.
+
+	^self postJson: endpoint withData: bitbucketCloudPullRequestComment asDictionary.
+]
