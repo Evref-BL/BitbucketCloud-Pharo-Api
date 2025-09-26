@@ -61,8 +61,9 @@ BitbucketCloudApi >> output [
 
 { #category : 'as yet unclassified' }
 BitbucketCloudApi >> prepareClient [
+	client prepareRequest.
 	client host: host.
-	client http.
+	client https.
 	
    accessToken ifNotNil: [  
 		client headerAt: #Authorization put: 'Bearer ' , accessToken ].

@@ -60,3 +60,20 @@ BitbucketCloudRessource >> getAll: endpoint withParams: paramsDict [
 
 	^ values
 ]
+
+{ #category : 'as yet unclassified' }
+BitbucketCloudRessource >> postJson: endpoint withData: data [ 
+
+	| response |
+	bitbucketCloudApi prepareClient.
+	bitbucketCloudApi client path: bitbucketCloudApi basePath , endpoint.
+
+	bitbucketCloudApi client entity:
+		(ZnEntity with: (NeoJSONWriter toString: data)).
+	bitbucketCloudApi client contentType: 'application/json'.
+
+	response := bitbucketCloudApi client post.
+
+	^ NeoJSONReader fromString: response
+
+]
