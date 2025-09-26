@@ -16,7 +16,9 @@ BaselineOfBitbucketCloudPharoAPI >> baseline: spec [
 
 { #category : 'baselines' }
 BaselineOfBitbucketCloudPharoAPI >> defineDependencies: spec [ 
-
+	spec
+		baseline: 'Mocketry'
+		with: [ spec repository: 'github://dionisiydk/Mocketry' ]
 ]
 
 { #category : 'baselines' }
@@ -32,6 +34,6 @@ BaselineOfBitbucketCloudPharoAPI >> definePackages: spec [
 	
 	spec
 		package: 'BitbucketCloudPharoAPI-Tests'
-		with: [ spec requires: #( 'BitbucketCloudPharoAPI' ) ].
+		with: [ spec requires: #( 'BitbucketCloudPharoAPI' 'Mocketry' ) ].
 
 ]
