@@ -32,6 +32,6 @@ BaselineOfBitbucketCloudPharoAPI >> definePackages: spec [
 	
 	spec
 		package: 'BitbucketCloudPharoAPI-Tests'
-		with: [ spec requires: #( 'BitbucketPharoAPI' ) ].
+		with: [ spec requires: #( 'BitbucketCloudPharoAPI' ) ].
 
 ]
