@@ -16,6 +16,11 @@ BaselineOfBitbucketCloudPharoAPI >> baseline: spec [
 
 { #category : 'baselines' }
 BaselineOfBitbucketCloudPharoAPI >> defineDependencies: spec [ 
+
+	spec
+		baseline: 'NeoJSON'
+		with: [ spec repository: 'github://svenvc/NeoJSON/repository' ].
+		
 	spec
 		baseline: 'Mocketry'
 		with: [ spec repository: 'github://dionisiydk/Mocketry' ]
