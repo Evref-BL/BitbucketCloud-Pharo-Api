@@ -1,8 +1,8 @@
 Class {
 	#name : 'BaselineOfBitbucketCloudPharoAPI',
 	#superclass : 'BaselineOf',
-	#category : 'BitbucketCloudPharoAPI',
-	#package : 'BitbucketCloudPharoAPI'
+	#category : 'BaselineOfBitbucketCloudPharoAPI',
+	#package : 'BaselineOfBitbucketCloudPharoAPI'
 }
 
 { #category : 'baselines' }
