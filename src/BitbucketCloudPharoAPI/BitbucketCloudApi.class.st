@@ -6,7 +6,9 @@ Class {
 		'accessToken',
 		'host',
 		'basePath',
-		'output'
+		'output',
+		'apiToken',
+		'username'
 	],
 	#category : 'BitbucketCloudPharoAPI',
 	#package : 'BitbucketCloudPharoAPI'
@@ -16,6 +18,12 @@ Class {
 BitbucketCloudApi >> accessToken: anObject [
 
 	accessToken := anObject
+]
+
+{ #category : 'accessing' }
+BitbucketCloudApi >> apiToken: anObject [
+
+	apiToken := anObject
 ]
 
 { #category : 'accessing' }
@@ -61,12 +69,18 @@ BitbucketCloudApi >> output [
 
 { #category : 'initialization' }
 BitbucketCloudApi >> prepareClient [
+
 	client prepareRequest.
 	client host: host.
 	client https.
-	
-   accessToken ifNotNil: [  
+
+	accessToken ifNotNil: [
 		client headerAt: #Authorization put: 'Bearer ' , accessToken ].
+
+	apiToken ifNotNil: [
+		client
+			username: username 
+			password: apiToken ]
 ]
 
 { #category : 'ressources' }
@@ -82,4 +96,15 @@ BitbucketCloudApi >> refs [
 { #category : 'ressources' }
 BitbucketCloudApi >> repositories [
 	^BitbucketCloudRepositories new bitbucketCloudApi: self.
+]
+
+{ #category : 'ressources' }
+BitbucketCloudApi >> source [
+	^BitbucketCloudSource new bitbucketCloudApi: self.
+]
+
+{ #category : 'accessing' }
+BitbucketCloudApi >> username: anObject [
+
+	username := anObject
 ]

@@ -109,3 +109,78 @@ BitbucketCloudRessourceTest >> testPostJsonWithData [
 		assert: client request entity string
 		equals: (NeoJSONWriter toString: data)
 ]
+
+{ #category : 'tests' }
+BitbucketCloudRessourceTest >> testPostWithData [
+
+| hostUrl result client endpoint gitlabRessource data responseMessage response bitbucketApi |
+	"Given"
+	hostUrl := 'https://www.url.com'.
+	client := ZnClient new.
+
+	bitbucketApi := BitbucketCloudApi new
+							username: 'username';
+		                apiToken: 'token';
+		                host: hostUrl;
+		                client: client.
+
+	endpoint := '/endpoint'.
+	data := { ('param' -> 'value') } asDictionary.
+
+	responseMessage := 'success'.
+	response := '{ "message": "' , responseMessage , '" }'.
+
+	gitlabRessource := BitbucketCloudRessource new bitbucketCloudApi: bitbucketApi.
+
+	client stub post willReturn: response.
+
+	"When"
+	result := gitlabRessource post: endpoint withData: data.
+
+	"Then"
+	self assert: (result at: #message) equals: responseMessage.
+
+	client request entity parts doWithIndex: [ :part :index |
+		self assert: part fieldName equals: (data keys at: index).
+
+		self assert: part fieldValue equals: (data values at: index) ]
+]
+
+{ #category : 'tests' }
+BitbucketCloudRessourceTest >> testPostWithDataIfResponseIsNil [
+
+	| hostUrl result client endpoint gitlabRessource data responseMessage response bitbucketApi |
+	"Given"
+	hostUrl := 'https://www.url.com'.
+	client := ZnClient new.
+
+	bitbucketApi := BitbucketCloudApi new
+		                username: 'username';
+		                apiToken: 'token';
+		                host: hostUrl;
+		                client: client.
+
+	endpoint := '/endpoint'.
+	data := { ('param' -> 'value') } asDictionary.
+
+	responseMessage := 'success'.
+	response := nil.
+
+	gitlabRessource := BitbucketCloudRessource new bitbucketCloudApi:
+		                   bitbucketApi.
+
+	client stub post willReturn: response.
+	
+	client stub response willReturn: (ZnResponse statusCode: 201).
+
+	"When"
+	result := gitlabRessource post: endpoint withData: data.
+
+	"Then"
+	self assert: (result) equals: 201.
+
+	client request entity parts doWithIndex: [ :part :index |
+		self assert: part fieldName equals: (data keys at: index).
+
+		self assert: part fieldValue equals: (data values at: index) ]
+]

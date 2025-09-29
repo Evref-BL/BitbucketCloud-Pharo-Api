@@ -14,7 +14,7 @@ BitbucketCloudRessource >> bitbucketCloudApi: anObject [
 	bitbucketCloudApi := anObject
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'core' }
 BitbucketCloudRessource >> get: path withParams: paramsDict [
 
 	| response |
@@ -32,7 +32,7 @@ BitbucketCloudRessource >> get: path withParams: paramsDict [
 	^ response
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'core' }
 BitbucketCloudRessource >> getAll: endpoint withParams: paramsDict [
 
 	| values results |
@@ -61,7 +61,25 @@ BitbucketCloudRessource >> getAll: endpoint withParams: paramsDict [
 	^ values
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'core' }
+BitbucketCloudRessource >> post: endpoint withData: data [
+
+	| response |
+	bitbucketCloudApi prepareClient.
+	bitbucketCloudApi client path: bitbucketCloudApi basePath , endpoint.
+
+	data keysAndValuesDo: [ :key :value |
+		bitbucketCloudApi client addPart:
+			(ZnMimePart fieldName: key value: value) ].
+
+	response := bitbucketCloudApi client post.
+	
+	response ifNil: [ ^bitbucketCloudApi client response code ].
+
+	^ NeoJSONReader fromString: response
+]
+
+{ #category : 'core' }
 BitbucketCloudRessource >> postJson: endpoint withData: data [ 
 
 	| response |

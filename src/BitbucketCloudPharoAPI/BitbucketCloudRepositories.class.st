@@ -5,12 +5,12 @@ Class {
 	#package : 'BitbucketCloudPharoAPI'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'api - get' }
 BitbucketCloudRepositories >> getFileOrDirectory: path fromCommit: commit inRepository: repoSlug ofWorkspace: workspace [
 	^self getFileOrDirectory: path fromCommit: commit inRepository: repoSlug ofWorkspace: workspace withParams: Dictionary new
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'api - get' }
 BitbucketCloudRepositories >> getFileOrDirectory: path fromCommit: commit inRepository: repoSlug ofWorkspace: workspace withParams: paramsDict [
 	| endpoint |
 	endpoint := '/repositories/', workspace, '/', repoSlug, '/src/', commit, '/', path.
