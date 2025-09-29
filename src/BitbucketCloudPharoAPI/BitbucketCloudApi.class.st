@@ -59,7 +59,7 @@ BitbucketCloudApi >> output [
 	^ output
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'initialization' }
 BitbucketCloudApi >> prepareClient [
 	client prepareRequest.
 	client host: host.
@@ -69,12 +69,17 @@ BitbucketCloudApi >> prepareClient [
 		client headerAt: #Authorization put: 'Bearer ' , accessToken ].
 ]
 
-{ #category : 'accessing' }
+{ #category : 'ressources' }
 BitbucketCloudApi >> pullRequests [
 	^BitbucketCloudPullRequests new bitbucketCloudApi: self.
 ]
 
-{ #category : 'accessing' }
+{ #category : 'ressources' }
+BitbucketCloudApi >> refs [
+	^BitbucketCloudRefs new bitbucketCloudApi: self.
+]
+
+{ #category : 'ressources' }
 BitbucketCloudApi >> repositories [
 	^BitbucketCloudRepositories new bitbucketCloudApi: self.
 ]
