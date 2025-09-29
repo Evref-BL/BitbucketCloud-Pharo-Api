@@ -9,6 +9,45 @@ Class {
 }
 
 { #category : 'tests' }
+BitbucketCloudPullRequestsTest >> testCreateInRepositoryOfWorkspace [
+
+	| hostUrl result client endpoint response bitbucketApi bitbucketPullRequests repositorySlug workspace sourceBranch destinationBranch title prCreate |
+	"Given"
+	hostUrl := 'www.url.com'.
+	client := Mock new.
+
+	bitbucketApi := BitbucketCloudApi new
+		             accessToken: 'token';
+		             host: hostUrl;
+		             client: client.
+	bitbucketPullRequests := BitbucketCloudPullRequests new bitbucketCloudApi: bitbucketApi.
+
+	workspace := 'OOO'.
+	repositorySlug := 'my project'.
+	sourceBranch := 'dev'.
+	destinationBranch := 'main'.
+	title := 'title'.
+	
+	prCreate := BitbucketCloudPullRequestCreate new 
+		title: title;
+		sourceBranch: sourceBranch;
+		destinationBranch: destinationBranch.
+	
+	endpoint := '/repositories/' , workspace , '/', repositorySlug, '/pullrequests'.
+
+	response := { (#message -> 'message') } asDictionary.
+
+	(bitbucketPullRequests stub postJson: endpoint withData: prCreate asDictionary) willReturn:
+		response.
+
+	"When"
+	result := bitbucketPullRequests create: prCreate inRepository: repositorySlug  ofWorkspace: workspace. 
+
+	"Then"
+	self assert: result equals: response
+]
+
+{ #category : 'tests' }
 BitbucketCloudPullRequestsTest >> testGetInRepositoryOfWorkspace [
 
 	| hostUrl gitlabApi result client path bitbucketPullRequests pullRequestID repoSlug pullRequest workspace |
