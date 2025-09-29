@@ -5,7 +5,17 @@ Class {
 	#package : 'BitbucketCloudPharoAPI'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'api - post' }
+BitbucketCloudPullRequests >> create: pullRequestCreate inRepository: repoSlug ofWorkspace: workspace [
+	"https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-post"
+	
+	| endpoint |
+	endpoint := '/repositories/', workspace, '/', repoSlug, '/pullrequests'.
+	
+	^self postJson: endpoint withData: pullRequestCreate asDictionary.
+]
+
+{ #category : 'api - get' }
 BitbucketCloudPullRequests >> get: pullRequestId inRepository: repoSlug ofWorkspace: workspace [
 	"https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-get"
 	
@@ -15,7 +25,7 @@ BitbucketCloudPullRequests >> get: pullRequestId inRepository: repoSlug ofWorksp
 	^self get: endpoint withParams: Dictionary new 
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'api - post' }
 BitbucketCloudPullRequests >> postComment: bitbucketCloudPullRequestComment inPullRequest: pullRequestId inRepository: repoSlug ofWorkspace: workspace [
 	"https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-comments-post"
 	
