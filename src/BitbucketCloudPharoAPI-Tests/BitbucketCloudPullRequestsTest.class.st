@@ -48,6 +48,41 @@ BitbucketCloudPullRequestsTest >> testCreateInRepositoryOfWorkspace [
 ]
 
 { #category : 'tests' }
+BitbucketCloudPullRequestsTest >> testGetCommentsOfInRepositoryOfWorkspace [
+
+	| hostUrl gitlabApi result client path bitbucketPullRequests pullRequestID repoSlug workspace comment comments |
+	"Given"
+	hostUrl := 'www.url.com'.
+	client := ZnClient new.
+
+	gitlabApi := BitbucketCloudApi new
+		             accessToken: 'token';
+		             host: hostUrl;
+		             client: client.
+	bitbucketPullRequests := BitbucketCloudPullRequests new bitbucketCloudApi: gitlabApi.
+
+	pullRequestID := 24.
+	workspace := 'AAA'.
+	repoSlug := 'project'.
+
+	comment := { (#id -> 1) } asDictionary.
+	comments := { comment}.
+
+	path := '/repositories/' , workspace , '/', repoSlug, '/pullrequests/', pullRequestID asString, '/comments'.
+	
+	(bitbucketPullRequests stub getAll: path withParams: Dictionary new)
+		willReturn: comments.
+
+	"When"
+	result := bitbucketPullRequests
+		          getCommentsOf: pullRequestID
+		          inRepository: repoSlug ofWorkspace: workspace.
+
+	"Then"
+	self assert: result equals: comments
+]
+
+{ #category : 'tests' }
 BitbucketCloudPullRequestsTest >> testGetInRepositoryOfWorkspace [
 
 	| hostUrl gitlabApi result client path bitbucketPullRequests pullRequestID repoSlug pullRequest workspace |
