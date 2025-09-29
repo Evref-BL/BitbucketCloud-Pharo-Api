@@ -35,6 +35,17 @@ BitbucketCloudPullRequests >> getCommentsOf: pullRequestId inRepository: repoSlu
 	^self getAll: endpoint withParams: Dictionary new.
 ]
 
+{ #category : 'api - get' }
+BitbucketCloudPullRequests >> getDiffStatsOf: pullRequestId inRepository: repoSlug ofWorkspace: workspace [
+
+	"https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-diffstat-get"
+		
+	| endpoint |
+	endpoint := '/repositories/', workspace, '/', repoSlug, '/pullrequests/', pullRequestId asString, '/diffstat'.
+	
+	^self getAll: endpoint  withParams: Dictionary new.
+]
+
 { #category : 'api - post' }
 BitbucketCloudPullRequests >> postComment: bitbucketCloudPullRequestComment inPullRequest: pullRequestId inRepository: repoSlug ofWorkspace: workspace [
 	"https://developer.atlassian.com/cloud/bitbucket/rest/api-group-pullrequests/#api-repositories-workspace-repo-slug-pullrequests-pull-request-id-comments-post"
