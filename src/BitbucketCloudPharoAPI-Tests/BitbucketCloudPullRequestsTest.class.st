@@ -83,6 +83,45 @@ BitbucketCloudPullRequestsTest >> testGetCommentsOfInRepositoryOfWorkspace [
 ]
 
 { #category : 'tests' }
+BitbucketCloudPullRequestsTest >> testGetDiffStatsOfInRepositoryOfWorkspace [
+
+| hostUrl gitlabApi result client path bitbucketPullRequests pullRequestID repoSlug workspace diffStat diffStats |
+	"Given"
+	hostUrl := 'www.url.com'.
+	client := ZnClient new.
+
+	gitlabApi := BitbucketCloudApi new
+		             accessToken: 'token';
+		             host: hostUrl;
+		             client: client.
+		
+	bitbucketPullRequests := BitbucketCloudPullRequests new
+		                         bitbucketCloudApi: gitlabApi.
+
+	pullRequestID := 24.
+	workspace := 'AAA'.
+	repoSlug := 'project'.
+
+	diffStat := { (#id -> 1) } asDictionary.
+	diffStats := { diffStat }.
+
+	path := '/repositories/' , workspace , '/' , repoSlug
+	        , '/pullrequests/' , pullRequestID asString , '/diffstat'.
+
+	(bitbucketPullRequests stub getAll: path withParams: Dictionary new)
+		willReturn: diffStats.
+
+	"When"
+	result := bitbucketPullRequests
+		          getDiffStatsOf: pullRequestID 
+		          inRepository: repoSlug
+		          ofWorkspace: workspace.
+
+	"Then"
+	self assert: result equals: diffStats
+]
+
+{ #category : 'tests' }
 BitbucketCloudPullRequestsTest >> testGetInRepositoryOfWorkspace [
 
 	| hostUrl gitlabApi result client path bitbucketPullRequests pullRequestID repoSlug pullRequest workspace |
