@@ -1,7 +1,7 @@
 # BitbucketCloud-Pharo-Api
 
 [![Continuous](https://github.com/Evref-BL/BitbucketCloud-Pharo-API/actions/workflows/continuous.yml/badge.svg)](https://github.com/Evref-BL/BitbucketCloud-Pharo-API/actions/workflows/continuous.yml)
-[![Coverage Status](https://coveralls.io/repos/github/Evref-BL/BitbucketCloud-Pharo-API/badge.svg?branch=develop)](https://coveralls.io/github/Evref-BL/BitbucketCloud-Pharo-API?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/Evref-BL/BitbucketCloud-Pharo-Api/badge.svg?branch=develop)](https://coveralls.io/github/Evref-BL/BitbucketCloud-Pharo-Api?branch=develop)
 
 A Pharo client for the [Bitbucket Cloud REST API](https://developer.atlassian.com/cloud/bitbucket/rest/intro)
 
