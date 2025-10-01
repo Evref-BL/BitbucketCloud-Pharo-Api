@@ -67,6 +67,12 @@ BitbucketCloudApi >> output [
 	^ output
 ]
 
+{ #category : 'accessing' }
+BitbucketCloudApi >> output: anObject [
+
+	output := anObject
+]
+
 { #category : 'initialization' }
 BitbucketCloudApi >> prepareClient [
 
