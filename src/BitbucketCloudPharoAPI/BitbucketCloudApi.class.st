@@ -77,16 +77,14 @@ BitbucketCloudApi >> output: anObject [
 BitbucketCloudApi >> prepareClient [
 
 	client prepareRequest.
+	client resetEntity.
 	client host: host.
 	client https.
 
 	accessToken ifNotNil: [
 		client headerAt: #Authorization put: 'Bearer ' , accessToken ].
 
-	apiToken ifNotNil: [
-		client
-			username: username 
-			password: apiToken ]
+	apiToken ifNotNil: [ client username: username password: apiToken ]
 ]
 
 { #category : 'ressources' }
@@ -97,11 +95,6 @@ BitbucketCloudApi >> pullRequests [
 { #category : 'ressources' }
 BitbucketCloudApi >> refs [
 	^BitbucketCloudRefs new bitbucketCloudApi: self.
-]
-
-{ #category : 'ressources' }
-BitbucketCloudApi >> repositories [
-	^BitbucketCloudRepositories new bitbucketCloudApi: self.
 ]
 
 { #category : 'ressources' }
