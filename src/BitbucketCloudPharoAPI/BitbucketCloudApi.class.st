@@ -98,11 +98,6 @@ BitbucketCloudApi >> refs [
 ]
 
 { #category : 'ressources' }
-BitbucketCloudApi >> repositories [
-	^BitbucketCloudRepositories new bitbucketCloudApi: self.
-]
-
-{ #category : 'ressources' }
 BitbucketCloudApi >> source [
 	^BitbucketCloudSource new bitbucketCloudApi: self.
 ]
